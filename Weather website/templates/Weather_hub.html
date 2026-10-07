@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}Weather hub{% endblock %}
+
+{% block content %}
+  <div class="wrapper">
+
+    <div class="vertical-spread">
+      <div class="data_box">
+        <h1 >Temperature</h1>
+        <h3 id="present_temp">content</h3>
+        <h3 id="future_temp_1">content</h3>
+        <h3 id="future_temp_2">content</h3>
+        <h3 id="future_temp_3">content</h3>
+        <h3 id="future_temp_4">content</h3>
+      </div>
+
+      <div class="data_box">
+        <h1 >Rain</h1>
+        <h3 id="precipitation">content</h3>
+        <h3 id="future_precip_1">content</h3>
+        <h3 id="future_precip_2">content</h3>
+        <h3 id="future_precip_3">content</h3>
+        <h3 id="future_precip_4">content</h3>
+      </div>
+
+      <div class="data_box">
+        <h1 >humidity</h1>
+        <h3 id="humidity">content</h3>
+        <h3 id="future_humidity_1">content</h3>
+        <h3 id="future_humidity_2">content</h3>
+        <h3 id="future_humidity_3">content</h3>
+        <h3 id="future_humidity_4">content</h3>
+      </div>
+
+      <div class="data_box">
+        <h1 >wind_spd</h1>
+        <h3 id="wind_spd">content</h3>
+        <h3 id="future_wind_spd_1">content</h3>
+        <h3 id="future_wind_spd_2">content</h3>
+        <h3 id="future_wind_spd_3">content</h3>
+        <h3 id="future_wind_spd_4">content</h3>
+      </div>
+
+      <div class="data_box">
+        <h1 >day or night?</h1>
+        <h3 id="is_day">content</h3>
+      </div>
+    </div>
+
+    <div class="footer">
+      <img src="../static/Images/Footer_image.jpeg" alt="This image cannot be displayed">
+    </div>
+  </div>
+
+
+  <script>
+    async function GetWeatherData() {
+      const response = await fetch("https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m,relative_humidity_2m,precipitation,wind_speed_10m&current=temperature_2m,precipitation,is_day,wind_speed_10m,relative_humidity_2m");
+      const data = await response.json();
+      console.log(data);
+
+      const target = data.current.time;
+      const index = data.hourly.time.indexOf(target);
+
+      document.getElementById("present_temp").innerHTML = "temperature: " + data.current.temperature_2m + " " + data.current_units.temperature_2m;
+      
+      document.getElementById("future_temp_1").innerHTML = "temperature in 1 hour: " + data.hourly.temperature_2m[index+1] + " " + data.hourly_units.temperature_2m;
+      document.getElementById("future_temp_2").innerHTML = "temperature in 2 hour: " + data.hourly.temperature_2m[index+2] + " " + data.hourly_units.temperature_2m;
+      document.getElementById("future_temp_3").innerHTML = "temperature in 3 hour: " + data.hourly.temperature_2m[index+3] + " " + data.hourly_units.temperature_2m;
+      document.getElementById("future_temp_4").innerHTML = "temperature in 4 hour: " + data.hourly.temperature_2m[index+4] + " " + data.hourly_units.temperature_2m;
+
+
+      document.getElementById("precipitation").innerHTML = "Precipitation: " + data.current.precipitation + " " + data.current_units.precipitation;
+
+      document.getElementById("future_precip_1").innerHTML = "Precipitation in 1 hour: " + data.hourly.precipitation[index+1] + " " + data.hourly_units.precipitation;
+      document.getElementById("future_precip_2").innerHTML = "Precipitation in 2 hour: " + data.hourly.precipitation[index+2] + " " + data.hourly_units.precipitation;
+      document.getElementById("future_precip_3").innerHTML = "Precipitation in 3 hour: " + data.hourly.precipitation[index+3] + " " + data.hourly_units.precipitation;
+      document.getElementById("future_precip_4").innerHTML = "Precipitation in 4 hour: " + data.hourly.precipitation[index+4] + " " + data.hourly_units.precipitation;
+
+
+      document.getElementById("humidity").innerHTML = "relative humidity: " + data.current.relative_humidity_2m + " " + data.current_units.relative_humidity_2m;
+      
+      document.getElementById("future_humidity_1").innerHTML = "relative humidity in 1 hour: " + data.hourly.relative_humidity_2m[index+1] + " " + data.hourly_units.relative_humidity_2m;
+      document.getElementById("future_humidity_2").innerHTML = "relative humidity in 2 hour: " + data.hourly.relative_humidity_2m[index+2] + " " + data.hourly_units.relative_humidity_2m;
+      document.getElementById("future_humidity_3").innerHTML = "relative humidity in 3 hour: " + data.hourly.relative_humidity_2m[index+3] + " " + data.hourly_units.relative_humidity_2m;
+      document.getElementById("future_humidity_4").innerHTML = "relative humidity in 4 hour: " + data.hourly.relative_humidity_2m[index+4] + " " + data.hourly_units.relative_humidity_2m;
+    
+
+      document.getElementById("wind_spd").innerHTML = "wind speed: " + data.current.wind_speed_10m + " " + data.current_units.wind_speed_10m;
+      
+      document.getElementById("future_wind_spd_1").innerHTML = "wind speed in 1 hour: " + data.hourly.wind_speed_10m[index+1] + " " + data.hourly_units.wind_speed_10m;
+      document.getElementById("future_wind_spd_2").innerHTML = "wind speed in 2 hour: " + data.hourly.wind_speed_10m[index+2] + " " + data.hourly_units.wind_speed_10m;
+      document.getElementById("future_wind_spd_3").innerHTML = "wind speed in 3 hour: " + data.hourly.wind_speed_10m[index+3] + " " + data.hourly_units.wind_speed_10m;
+      document.getElementById("future_wind_spd_4").innerHTML = "wind speed in 4 hour: " + data.hourly.wind_speed_10m[index+4] + " " + data.hourly_units.wind_speed_10m;
+    
+      let dayOrNight = "";
+      if (data.current.is_day > 0) {
+        dayOrNight = "Day";
+      } else {
+        dayOrNight 
+        = "Night";
+      }
+      document.getElementById("is_day").innerHTML = "Day or Night: " + dayOrNight;
+    }
+    GetWeatherData();
+  </script>
+
+{% endblock %}

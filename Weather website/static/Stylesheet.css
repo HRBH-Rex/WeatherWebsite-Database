@@ -1,0 +1,214 @@
+:root {
+	/*global colors*/
+	--page_background: #406691;
+	--button_text: #ffffff;
+	--div_border: #9ba4b1;
+	/*navbox colors*/
+	--navbox_background: #ad22ee;
+	--navbox_button: #2c19da;
+	--navbox_button_hover: #251bb9;
+	--navbox_button_click: #1f0970;
+	/*home page colors*/
+	--data_box_background: #55cadf;
+	--footer_background: #4855c9;
+	/*sign up page colors*/
+	--textbox_background: #ffffff;
+	--textbox_text: #000000;
+	--details_button: #007700;
+	--details_button_hover: #005500;
+	--details_button_active:#188f18;
+	/*weather hub colors*/
+
+}
+
+body {
+	background-color: var(--page_background)
+}
+
+.vertical-spread {
+    display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 10px;
+}
+
+.horizontal-spread {
+    display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	gap: 10px;
+}
+
+/*navbox*/
+.navbox {
+ 	position: fixed;
+ 	display: block;
+ 	left: 0;
+ 	top: 0;
+ 	width: 100%;
+ 	height: 95px;
+ 	overflow: hidden;
+	background-color: var(--navbox_background);
+}
+.navbox ul {
+	z-index: 1;
+ 	position: fixed;
+ 	float: left;
+	width: 40%;
+ 	display: flex;
+ 	flex-direction: row;
+ 	align-items: flex-start;
+ 	gap:10px;
+ 	list-style-type: none;
+ 	overflow: hidden;
+}
+.navbox li a {
+ 	height: auto;
+ 	width: auto;
+	padding: 20px 30px;
+ 	display: inline-block;
+ 	background-color: var(--navbox_button);
+	text-decoration: none;
+ 	color: var(--button_text);
+}
+.navbox li a:hover {
+ 	background-color: var(--navbox_button_hover);
+}
+.navbox li a:active {
+ 	background-color: var(--navbox_button_click);
+}
+.navbox .login_status {
+	width: 90px;
+	height: 90px;
+	float: right;
+	border-radius: 65px;
+	overflow: hidden;
+}
+.navbox .login_status img {
+	width:90px;
+	height: 90px;
+}
+
+/*msgboard*/
+.MessageBoard {
+	max-width: 200px;
+	display: flex;
+	background-color: var(--data_box_background);
+	float: right;
+}
+.MessageBoard.FlashMessage{
+	min-width: 50px;
+	min-height: 20px;
+	display: flex;
+
+}
+.FlashMessage.p {
+	color: var(--textbox_text);
+}
+.FlashMessage.button {
+	color: var(--textbox_text);
+}
+
+/*Home page*/
+.wrapper {
+	margin-top: 100px;
+    display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	gap: 10px;	
+}
+
+.data_box {
+	min-width: 800px;
+	min-height: 200px;
+	background-color: var(--data_box_background);
+	padding: 10px;
+	border-style: solid;
+	border-radius: 25px;
+	border-color: var(--div_border);
+}
+
+.footer {
+	order: -1;
+	max-width: 350px;
+	min-height: 1200px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	overflow: hidden;
+	gap: 10px;
+	background-color: var(--footer_background);
+	border-style: solid;
+	border-radius: 25px;
+	border-color: var(--div_border);
+}
+.footer img {
+	max-width: 400px;
+}
+
+/*sign-up page*/
+.details-input {
+    margin-top: 100px;
+}
+.details-input input {
+	background-color: var(--textbox_background);
+	color: var(--textbox_text);
+}
+.details-input button {
+	width: 50%;
+	background-color: var(--details_button);
+	padding: 14px 20px;
+	color: var(--button_text);
+}
+.details-input button:hover {
+	background-color: var(--details_button_hover);
+}
+.details-input button:active{
+	background-color: var(--details_button_active);
+}
+
+
+/*weather hub page*/
+
+
+/*mobile settings*/
+@media screen and (max-width:680px) {
+	/*global*/
+    .navbox li a {
+ 		padding: 10px 15px;
+	}
+
+	/*home page*/
+	.Homepg_wrapper {
+    	display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 10px;
+    }
+
+	.data_box {
+		min-width: 250px;
+		min-height: 200px;;
+		padding: 10px;
+		border-radius: 25px;
+	}
+	.data_box h2 {
+		text-align: center;
+	}
+
+	.footer {
+		order: 1;
+		max-width: 100%;
+		min-width: 100%;
+		min-height: 200px;
+		flex-direction: row;
+	}
+	.footer img {
+		max-width: 100px;
+		align-self: flex-start;
+		border-radius: 25px;
+	}
+
+	/*weather hub*/
+
+}

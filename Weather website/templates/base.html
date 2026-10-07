@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/Stylesheet.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>{% block title %}Home Page{% endblock %}</title>
+  </head>
+  <body>
+
+    <div class="navbox">
+      <ul>
+				{% if request.endpoint != "Log_in" %}
+					<li><a href="/Log_in">Log in</a></li>
+				{% endif %}
+
+				{% if "User_id" in session %}
+					{% if request.endpoint != "Weather_hub" %}
+					<li><a href="/Weather_hub">Weather hub</a></li>
+					{% endif %}
+					<li><a href="/">Log out</a></li>
+
+				{% else %}
+					{% if request.endpoint != "Home_Page" %}
+					<li><a href="/">Home page</a></li>
+					{% endif %}
+					
+				{% endif %}
+      </ul>
+
+      <div class="login_status">
+        {% if "User_id" in session %}
+          <img src="../static/Images/Log_in_green.webp" alt="This img cannot be displayed">
+        {% else %}
+					<img src="../static/Images/Log_in_red.jpg" alt="This img cannot be displayed">
+        {% endif %}
+      </div>
+    </div>
+
+		{% with messages = get_flashed_messages() %}
+			{% if messages %}
+				<div class="MessageBoard" id="msgbrd">
+					{% for message in messages %}
+						<div class="FlashMessage" id="notif">
+							<p>{{message}}</p>
+							<button onclick="ClosePopUp(event)">x</button>
+						</div>
+					{% endfor %}
+				</div>
+			{% endif %}
+		{% endwith %}
+
+  	{% block content %}
+		{% endblock %}
+
+		<script>
+			function ClosePopUp(event){
+				const button = event.currentTarget;
+  			const notif = button.closest('.FlashMessage');
+				const msgbrd = document.getElementById("msgbrd");
+				let totalDivs = msgbrd.querySelectorAll('div').length;
+				if (totalDivs === 1){
+					msgbrd.remove();
+				}
+				else{
+					notif.remove();
+				}
+			}
+		</script>
+	</body>
+</html>
